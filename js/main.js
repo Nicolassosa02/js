@@ -24,9 +24,11 @@ function caso3(){
 //Inicio del programa
 
 alert ("Bienvenido a NETSOSA")
-const opciones = "¿Qué esta buscando? 1- Crear mi pagina web 2- Un Community Manager 3- Solo informarme 0- Salir"
+const opciones = ("¿Qué esta buscando? 1- Crear mi pagina web 2- Un Community Manager 3- Solo informarme 0- Salir")
+
 
 let opcion =parseInt(prompt(opciones)) 
+
 
 while (opcionValida(opcion)){
 
@@ -35,7 +37,6 @@ while (opcionValida(opcion)){
         case 1:
             caso1
             break;
-            
 
         case 2:
             caso2
