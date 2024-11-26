@@ -233,4 +233,39 @@ button{
     grid-area: a4;
     padding: 0 25px 15px 25px;
 }
+table {
+    margin-left: 20%;
+    border-collapse: collapse;
+    width: 60%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #dddddd;
+}
+
+th {
+    background-color: rgb(0, 4, 255);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+tbody{
+    color: black;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+.botonesDeServicio{
+    margin-left: 40%;
+}
 /*fin del index*/
