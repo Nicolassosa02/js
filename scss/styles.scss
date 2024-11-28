@@ -268,4 +268,104 @@ tr:hover {
 .botonesDeServicio{
     margin-left: 40%;
 }
+.notificaciones {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+  }
+  
+  .notificacion {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeOut 3s forwards;
+  }
+  
+  @keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+  }
+  .hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+}
+// prueba 
+/* Estilo para las notificaciones */
+.notificacion {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.notificacion.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.notificacion.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.notificacion.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Estilo para formularios dinámicos */
+.formulario-dinamico {
+    margin: 20px;
+}
+
+.formulario-dinamico input, .formulario-dinamico button {
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
 /*fin del index*/

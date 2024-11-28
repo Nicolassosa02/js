@@ -35,7 +35,7 @@ let servicios = transformarServiciosLocalStorage(localStorage.getItem("servicios
 // Si no hay servicios en localStorage, inicializar con un valor predeterminado
 if (servicios.length === 0) {
     servicios = [new Servicio("Página web", 2900, 1)];
-    guardarEnLS(); // Guardar el servicio inicial en localStorage
+    guardarEnLS();
 }
 
 // Referencias del DOM
@@ -43,7 +43,28 @@ const tablaServicios = document.getElementById("tablaServicios").querySelector("
 const btnCrearServicio = document.getElementById("btnCrearServicio");
 const btnMostrarTotal = document.getElementById("btnMostrarTotal");
 const btnModificarServicio = document.getElementById("btnModificarServicio");
+const formularioServicio = document.getElementById("formularioServicio");
+const btnGuardarServicio = document.getElementById("btnGuardarServicio");
+const btnCancelar = document.getElementById("btnCancelar");
+const inputNombre = document.getElementById("nombre");
+const inputPrecio = document.getElementById("precio");
+const inputCantidad = document.getElementById("cantidad");
 
+// Mostrar notificaciones
+function mostrarNotificacion(mensaje, tipo = "info") {
+    const notificaciones = document.getElementById("notificaciones");
+
+    const notificacion = document.createElement("div");
+    notificacion.className = `notificacion ${tipo}`;
+    notificacion.textContent = mensaje;
+
+    notificaciones.appendChild(notificacion);
+
+    // Eliminar la notificación después de 3 segundos
+    setTimeout(() => {
+        notificacion.remove();
+    }, 3000);
+}
 // Actualizar la tabla de servicios
 function actualizarTabla() {
     tablaServicios.innerHTML = ""; // Limpiar la tabla
@@ -74,55 +95,42 @@ function eliminarServicio(event) {
     servicios.splice(index, 1); // Eliminar el servicio del array
     guardarEnLS(); // Actualizar localStorage
     actualizarTabla(); // Actualizar la tabla
+    mostrarNotificacion("Servicio eliminado exitosamente", "success");
 }
 
 // Crear un nuevo servicio
 btnCrearServicio.addEventListener("click", () => {
-    const nombre = prompt("Ingrese el nombre del servicio:");
-    const precio = parseInt(prompt("Ingrese el precio del servicio:"));
-    const cantidad = parseInt(prompt("Ingrese la cantidad:"));
+    formularioServicio.style.display = "block";
+    limpiarFormulario();
+});
+
+btnCancelar.addEventListener("click", () => {
+    formularioServicio.style.display = "none";
+});
+
+btnGuardarServicio.addEventListener("click", () => {
+    const nombre = inputNombre.value.trim();
+    const precio = parseFloat(inputPrecio.value);
+    const cantidad = parseInt(inputCantidad.value);
 
     if (!nombre || isNaN(precio) || isNaN(cantidad)) {
-        alert("Datos inválidos");
+        mostrarNotificacion("Datos inválidos", "danger");
         return;
     }
 
-    const servicio = new Servicio(nombre, precio, cantidad);
-    servicios.push(servicio);
+    servicios.push(new Servicio(nombre, precio, cantidad));
     guardarEnLS();
     actualizarTabla();
-    alert("Servicio agregado exitosamente");
+    mostrarNotificacion("Servicio agregado exitosamente", "success");
+    formularioServicio.style.display = "none";
 });
 
 // Mostrar el total de los servicios
 btnMostrarTotal.addEventListener("click", () => {
     const total = servicios.reduce((acc, el) => acc + el.obtenerSubtotal(), 0);
-    alert(`El total de los servicios contratados es $${total}`);
+    mostrarNotificacion(`El total de los servicios contratados es $${total}`, "info");
 });
 
-// Modificar un servicio existente
-btnModificarServicio.addEventListener("click", () => {
-    const nombre = prompt("Ingrese el nombre del servicio a modificar:");
-    const servicio = servicios.find((el) => el.nombre.toLowerCase() === nombre.toLowerCase());
-
-    if (servicio) {
-        const nuevoPrecio = parseInt(prompt("Ingrese el nuevo precio:"));
-        const nuevaCantidad = parseInt(prompt("Ingrese la nueva cantidad:"));
-
-        if (isNaN(nuevoPrecio) || isNaN(nuevaCantidad)) {
-            alert("Datos inválidos");
-            return;
-        }
-
-        servicio.precio = nuevoPrecio;
-        servicio.cantidad = nuevaCantidad;
-        guardarEnLS();
-        actualizarTabla();
-        alert("Servicio modificado exitosamente");
-    } else {
-        alert("Servicio no encontrado");
-    }
-});
 
 // Referencias de los botones de contratar
 const btnContratarSitioWeb = document.querySelectorAll(".contratar")[0];
@@ -132,18 +140,19 @@ const btnContratarTiendaOnline = document.querySelectorAll(".contratar")[1];
 btnContratarSitioWeb.addEventListener("click", () => {
     const servicio = new Servicio("Sitio web", 2900, 1);
     servicios.push(servicio);
-    guardarEnLS(); // Guardar el servicio agregado en localStorage
-    actualizarTabla(); // Actualizar la tabla
-    alert("Servicio 'Sitio web' agregado exitosamente");
+    guardarEnLS();
+    actualizarTabla();
+    mostrarNotificacion("Servicio 'Sitio web' agregado exitosamente", "success");
 });
 
 // Evento para el botón "Contratar" de "Tienda Online"
 btnContratarTiendaOnline.addEventListener("click", () => {
     const servicio = new Servicio("Tienda Online", 4500, 1);
     servicios.push(servicio);
-    guardarEnLS(); // Guardar el servicio agregado en localStorage
-    actualizarTabla(); // Actualizar la tabla
-    alert("Servicio 'Tienda Online' agregado exitosamente");
+    guardarEnLS();
+    actualizarTabla();
+    mostrarNotificacion("Servicio 'Tienda Online' agregado exitosamente", "success");
 });
+
 // Inicializar la tabla al cargar la página
 actualizarTabla();
